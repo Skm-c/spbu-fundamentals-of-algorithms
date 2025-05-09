@@ -1,11 +1,14 @@
 from pathlib import Path
 from collections import deque
 from typing import Any
+import sys
 from abc import ABC, abstractmethod
 
 import networkx as nx
+project_path = Path(r"C:\Python\PythonProject\fork")
+sys.path.append(str(project_path))
 
-from practicum_4.dfs import GraphTraversal
+from ..dfs import GraphTraversal
 from src.plotting.graphs import plot_graph
 from src.common import AnyNxGraph
 
