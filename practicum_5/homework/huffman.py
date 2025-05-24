@@ -62,16 +62,19 @@ class HuffmanCoding:
 
 class LossyCompression:
     def __init__(self) -> None:
-        self.alp = ts
-        self.len = len(ts)
-        self.min = np.min(ts)
-        self.max = np.max(ts)
-        self.interval_len = (max(ts) - min(ts)) / len(ts)
-        self.intervals = [np.min(ts)]
+
+        self.intervals = []
         self.centers = []
         self.code = None
 
     def compress(self, time_series: NDArrayFloat) -> str:
+
+        self.len = len(time_series)
+        self.min = np.min(time_series)
+        self.max = np.max(time_series)
+        self.interval_len = (max(time_series) - min(time_series)) / len(time_series)
+        self.intervals = [np.min(time_series)]
+
         for k in range(self.len):
             self.intervals.append(self.intervals[-1] + self.interval_len)
             self.centers.append((self.intervals[-2] + self.intervals[-1]) / 2)
@@ -95,16 +98,16 @@ class LossyCompression:
         return np.array(res, dtype=np.float64)
 
 if __name__ == "__main__":
-    ts = np.loadtxt("ts_homework_practicum_5.txt")
+    ts1 = np.loadtxt("ts_homework_practicum_5.txt")
 
     compressor = LossyCompression()
-    bits = compressor.compress(ts)
+    bits = compressor.compress(ts1)
     decompressed_ts = compressor.decompress(bits)
 
-    compression_ratio = (len(ts) * 32 * 8) / len(bits)
+    compression_ratio = (len(ts1) * 32 * 8) / len(bits)
     print(f"Compression ratio: {compression_ratio:.2f}")
 
-    compression_loss = np.sqrt(np.mean((ts - decompressed_ts)**2))
+    compression_loss = np.sqrt(np.mean((ts1 - decompressed_ts)**2))
     print(f"Compression loss (RMSE): {compression_loss}")
 
     huffman = HuffmanCoding()
