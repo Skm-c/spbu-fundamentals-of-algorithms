@@ -40,8 +40,8 @@ class LuSolverWithPermute(LinearSystemSolver):
 
         n = self.A.shape[0]
         U = self.A.copy()
-        P = np.eye(n, dtype=A.dtype)
-        L = np.eye(n, dtype=A.dtype)
+        P = np.eye(n, dtype=self.A.dtype)
+        L = np.eye(n, dtype=self.A.dtype)
 
         for k in range(n-1):
             if permute:
